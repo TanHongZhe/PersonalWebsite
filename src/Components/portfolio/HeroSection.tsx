@@ -10,6 +10,10 @@ export default function HeroSection() {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const openCV = () => {
+    window.open("https://hongzhecv-nov2025-v3.tiiny.site/", "_blank");
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -72,7 +76,8 @@ export default function HeroSection() {
               <ArrowDown className="w-4 h-4" />
             </VoxelButton>
             
-            <VoxelButton variant="outline">
+            {/* UPDATED BUTTON HERE */}
+            <VoxelButton onClick={openCV} variant="outline">
               <FileText className="w-5 h-5" />
               Download CV
             </VoxelButton>
