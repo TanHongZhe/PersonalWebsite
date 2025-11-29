@@ -14,7 +14,8 @@ const projects = [
     techStack: ["Microcontroller", "WiFi Web Server", "C++", "Sensors"],
     hasAward: true,
     variant: 'wood',
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop",
+    imageAlt: "Autonomous microcontroller rover project with embedded sensors and WiFi connectivity for real-time obstacle navigation"
   },
   {
     title: "FPGA Design & Quartus",
@@ -24,7 +25,8 @@ const projects = [
     techStack: ["MAX10 DE10-Lite", "Quartus Prime", "SystemVerilog"],
     hasAward: false,
     variant: 'glass',
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+    imageAlt: "FPGA development board MAX10 DE10-Lite used for digital system design with Quartus Prime and SystemVerilog"
   }
 ];
 
@@ -39,7 +41,7 @@ export default function ProjectsSection() {
           className="mb-16"
         >
           <div className="flex items-center gap-3 mb-4">
-            <TreePine className="w-5 h-5 text-green-400" />
+            <TreePine className="w-5 h-5 text-green-400" aria-hidden="true" />
             <span className="text-green-400 text-sm font-bold tracking-widest uppercase">Projects</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-emerald-100" style={{ fontFamily: "'VT323', monospace" }}>
@@ -57,17 +59,15 @@ export default function ProjectsSection() {
               transition={{ delay: index * 0.2 }}
             >
               <VoxelCard variant={project.variant} className="h-full">
-                {/* Project Image */}
                 <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden">
                   <img 
                     src={project.image} 
-                    alt={project.title}
+                    alt={project.imageAlt}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
-                  {/* Pixelated overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
                   
-                  {/* Award Badge */}
                   {project.hasAward && (
                     <motion.div 
                       className="absolute top-4 right-4 flex items-center gap-2 px-3 py-2 bg-amber-500/90 border-2 border-amber-400 rounded-sm"
@@ -75,24 +75,24 @@ export default function ProjectsSection() {
                       whileInView={{ scale: 1, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.5, type: 'spring' }}
+                      role="img"
+                      aria-label="Award winner badge"
                     >
-                      <Award className="w-4 h-4 text-amber-950" />
+                      <Award className="w-4 h-4 text-amber-950" aria-hidden="true" />
                       <span className="text-amber-950 text-xs font-black">WINNER</span>
                     </motion.div>
                   )}
                   
-                  {/* Icon Block */}
                   <div className="absolute bottom-4 left-4">
                     <div className="w-14 h-14 relative">
                       <div className="absolute inset-0 bg-emerald-800 rounded-sm translate-x-1 translate-y-1" />
                       <div className="relative w-full h-full bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-sm flex items-center justify-center border-2 border-emerald-300/50">
-                        <project.icon className="w-7 h-7 text-emerald-950" />
+                        <project.icon className="w-7 h-7 text-emerald-950" aria-label={project.title} />
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Content */}
                 <h3 className="text-xl font-black text-emerald-100 mb-1" style={{ fontFamily: "'VT323', monospace" }}>
                   {project.title}
                 </h3>
@@ -102,7 +102,6 @@ export default function ProjectsSection() {
                   {project.description}
                 </p>
                 
-                {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.techStack.map(tech => (
                     <span 
@@ -114,19 +113,23 @@ export default function ProjectsSection() {
                   ))}
                 </div>
                 
-                {/* Actions */}
                 <div className="flex items-center gap-4 pt-4 border-t-2 border-emerald-800/50">
-                  <button className="flex items-center gap-2 text-emerald-400 hover:text-lime-400 transition-colors text-sm font-bold">
-                    <Github className="w-4 h-4" />
+                  <button 
+                    className="flex items-center gap-2 text-emerald-400 hover:text-lime-400 transition-colors text-sm font-bold"
+                    aria-label={`View source code for ${project.title}`}
+                  >
+                    <Github className="w-4 h-4" aria-hidden="true" />
                     Code
                   </button>
-                  <button className="flex items-center gap-2 text-emerald-400 hover:text-lime-400 transition-colors text-sm font-bold">
-                    <ExternalLink className="w-4 h-4" />
+                  <button 
+                    className="flex items-center gap-2 text-emerald-400 hover:text-lime-400 transition-colors text-sm font-bold"
+                    aria-label={`View details for ${project.title}`}
+                  >
+                    <ExternalLink className="w-4 h-4" aria-hidden="true" />
                     Details
                   </button>
                 </div>
                 
-                {/* Decorative leaves */}
                 <PixelLeaf className="absolute -top-1 -right-1" size="md" />
               </VoxelCard>
             </motion.div>
