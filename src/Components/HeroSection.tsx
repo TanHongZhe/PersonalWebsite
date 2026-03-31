@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Linkedin, Mail } from 'lucide-react';
 import { Component as InfiniteGrid } from '../Components/ui/the-infinite-grid';
+import MorphPanel from './ui/ai-input';
 
 export default function HeroSection() {
   return (
@@ -21,11 +22,15 @@ export default function HeroSection() {
             Undergraduate at Imperial College London <span className="text-primary font-medium opacity-80">(QS World Ranking 2)</span>. Passionate about hardware engineering, AI automations, and electronics.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="https://drive.google.com/file/d/15zrSnfFRTYcdSqVI_Bkti_bSnqH7a8Lp/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="gradient-button px-8 py-4 rounded-full font-display font-semibold text-lg flex items-center gap-2 group text-white shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-shadow">
+          <div className="flex flex-col xl:flex-row items-start justify-center gap-6 min-h-[60px]">
+            <a href="https://drive.google.com/file/d/15zrSnfFRTYcdSqVI_Bkti_bSnqH7a8Lp/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="gradient-button px-8 py-4 rounded-full font-display font-semibold text-lg flex items-center gap-2 group text-white shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-shadow cursor-pointer z-40">
               View My Resume
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
+
+            <div className="relative z-50">
+              <MorphPanel />
+            </div>
             
             <div className="flex items-center gap-4 border border-border/50 glass-card px-6 py-4 rounded-full">
               <a href="https://www.linkedin.com/in/hong-zhe-tan/" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
