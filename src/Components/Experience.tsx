@@ -36,144 +36,44 @@ const experiences = [
   }
 ];
 
-const ExperienceCard = ({ exp, index, scrollYProgress, total, isLast }: { exp: typeof experiences[0], index: number, scrollYProgress: MotionValue<number>, total: number, isLast: boolean }) => {
-  // Each experience gets an equal chunk of the total scroll
-  const sectionLen = 1 / total;
-  const start = index * sectionLen;
-  const end = (index + 1) * sectionLen;
-
-  // Phase 1: Logo fades in (0% - 20% of section)
-  const logoFadeIn = start + sectionLen * 0.05;
-  const logoFullyIn = start + sectionLen * 0.20;
-  
-  // Phase 2: Logo holds, then fades as card comes in (20% - 45%)
-  const logoFadeOut = start + sectionLen * 0.40;
-  
-  // Phase 3: Card fades in (35% - 50%)
-  const cardFadeIn = start + sectionLen * 0.35;
-  const cardFullyIn = start + sectionLen * 0.50;
-  
-  // Phase 4: Card holds (50% - 80%), then fades out (80% - 95%)
-  const cardFadeOut = start + sectionLen * 0.80;
-  const cardGone = start + sectionLen * 0.95;
-
-  // Logo animation
-  const logoOpacity = useTransform(
-    scrollYProgress,
-    index === 0 
-      ? [start, logoFullyIn, logoFadeOut - sectionLen * 0.05, logoFadeOut] 
-      : [start, logoFadeIn, logoFullyIn, logoFadeOut - sectionLen * 0.05, logoFadeOut],
-    index === 0 
-      ? [1, 1, 1, 0] 
-      : [0, 0, 1, 1, 0]
-  );
-
-  const logoScale = useTransform(
-    scrollYProgress,
-    [start, logoFullyIn, logoFadeOut],
-    [0.5, 1, 1.3]
-  );
-
-  const logoY = useTransform(
-    scrollYProgress,
-    [start, logoFullyIn, logoFadeOut],
-    [40, 0, -40]
-  );
-
-  // Card animation — last card stays visible (doesn't fade out)
-  const cardOpacity = useTransform(
-    scrollYProgress,
-    isLast
-      ? [cardFadeIn, cardFullyIn]
-      : [cardFadeIn, cardFullyIn, cardFadeOut, cardGone],
-    isLast
-      ? [0, 1]
-      : [0, 1, 1, 0]
-  );
-
-  const cardY = useTransform(
-    scrollYProgress,
-    isLast
-      ? [cardFadeIn, cardFullyIn]
-      : [cardFadeIn, cardFullyIn, cardFadeOut, cardGone],
-    isLast
-      ? [60, 0]
-      : [60, 0, 0, -60]
-  );
-
-  const pointerEvents = useTransform(
-    cardOpacity,
-    (val) => (val > 0.3 ? "auto" : "none")
-  );
-
+const ExperienceCard = ({ exp }: { exp: typeof experiences[0] }) => {
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      {/* Big Logo Float Animation */}
-      <motion.div
-        style={{
-          opacity: logoOpacity,
-          scale: logoScale,
-          y: logoY,
-          pointerEvents: "none"
-        }}
-        className="absolute inset-0 flex flex-col items-center justify-center z-10"
-      >
-        {exp.logo && (
-          <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-white flex flex-col items-center justify-center p-6 shadow-[0_0_40px_rgba(255,255,255,0.2)] overflow-hidden">
-            <img
-              src={exp.logo}
-              alt={`${exp.company} logo`}
-              className="w-full h-full object-contain opacity-100"
-            />
-          </div>
-        )}
-      </motion.div>
-
-      {/* Actual Card content */}
-      <motion.div
-        style={{
-          opacity: cardOpacity,
-          y: cardY,
-          pointerEvents: pointerEvents as any
-        }}
-        className="glass-card rounded-3xl p-6 md:p-10 flex flex-col lg:flex-row gap-8 items-start hover:border-primary/50 transition-colors relative z-20 w-full max-w-5xl bg-background/95 backdrop-blur-3xl shadow-2xl"
-      >
-        <div className="lg:w-1/3 w-full">
-          <div className="flex items-center gap-4 mb-4">
-            {exp.logo && (
-              <div className="w-14 h-14 rounded-full bg-white flex flex-col items-center justify-center p-2 shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/10 overflow-hidden">
-                <img src={exp.logo} alt={`${exp.company} logo`} className="w-full h-full object-contain" />
-              </div>
-            )}
-            <div>
-              <p className="text-primary font-body font-medium mb-1">{exp.date}</p>
-              <h4 className="text-2xl font-display font-bold text-foreground leading-tight">{exp.role}</h4>
-            </div>
-          </div>
-          <p className="text-xl text-muted-foreground font-display">{exp.company}</p>
-        </div>
-
-        <div className="lg:w-2/3">
-          <p className="text-foreground/80 font-body text-lg leading-relaxed mb-6">
-            {exp.description}
-          </p>
-
-          {exp.images && exp.images.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {exp.images.map((img, i) => (
-                <div key={i} className="rounded-xl overflow-hidden border border-border/50 group aspect-video bg-section-dark">
-                  <img
-                    src={img}
-                    alt={`${exp.company} image ${i + 1}`}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
-                </div>
-              ))}
+    <div className="glass-card rounded-3xl p-6 md:p-10 flex flex-col lg:flex-row gap-8 items-start hover:border-primary/50 transition-colors relative z-20 w-full max-w-5xl bg-background/98 backdrop-blur-3xl shadow-2xl max-h-[85vh] overflow-y-auto hide-scrollbar">
+      <div className="lg:w-1/3 w-full shrink-0">
+        <div className="flex items-center gap-4 mb-4">
+          {exp.logo && (
+            <div className="w-14 h-14 rounded-full bg-white flex flex-col items-center justify-center p-2 shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/10 overflow-hidden">
+              <img src={exp.logo} alt={`${exp.company} logo`} className="w-full h-full object-contain" />
             </div>
           )}
+          <div>
+            <p className="text-primary font-body font-medium mb-1">{exp.date}</p>
+            <h4 className="text-2xl font-display font-bold text-foreground leading-tight">{exp.role}</h4>
+          </div>
         </div>
-      </motion.div>
+        <p className="text-xl text-muted-foreground font-display">{exp.company}</p>
+      </div>
+
+      <div className="lg:w-2/3">
+        <p className="text-foreground/80 font-body text-lg leading-relaxed mb-6">
+          {exp.description}
+        </p>
+
+        {exp.images && exp.images.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {exp.images.map((img, i) => (
+              <div key={i} className="rounded-xl overflow-hidden border border-border/50 group aspect-video bg-section-dark">
+                <img
+                  src={img}
+                  alt={`${exp.company} image ${i + 1}`}
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -186,25 +86,48 @@ export default function Experience() {
     offset: ["start start", "end end"]
   });
 
-  return (
-    <section id="experience" ref={containerRef} className="relative w-full bg-background" style={{ height: `${experiences.length * 150}vh` }}>
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center px-4 md:px-8 py-24">
-        <div className="absolute top-8 w-full text-center z-30 pointer-events-none">
-          <h2 className="text-primary font-display font-medium tracking-widest mb-2 uppercase drop-shadow-md">Career</h2>
-          <h3 className="text-4xl md:text-6xl font-display font-bold text-foreground drop-shadow-lg">Work Experience</h3>
-        </div>
+  // Calculate horizontal translation based on scroll progress
+  // Translate from 0% to -(N-1)/N * 100%
+  const xTranslate = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", `-${(experiences.length - 1) * 100 / experiences.length}%`]
+  );
 
-        <div className="relative w-full max-w-6xl mx-auto flex-1 flex items-center justify-center mt-12 md:mt-20">
-          {experiences.map((exp, index) => (
-            <ExperienceCard
-              key={index}
-              exp={exp}
-              index={index}
-              scrollYProgress={scrollYProgress}
-              total={experiences.length}
-              isLast={index === experiences.length - 1}
-            />
-          ))}
+  return (
+    <section id="experience" className="relative w-full bg-background">
+      {/* Container provides exact scrollable height for horizontal sliding */}
+      <div ref={containerRef} className="relative w-full" style={{ height: `${experiences.length * 100}vh` }}>
+        <div className="sticky top-0 h-[100svh] w-full flex flex-col items-center justify-center overflow-hidden pt-20 pb-16 md:pt-24 md:pb-24">
+          
+          {/* Header sits securely above the horizontal track now */}
+          <div className="relative w-full text-center z-10 pointer-events-none shrink-0 mb-6 md:mb-10 flex flex-col items-center">
+            <h2 className="text-primary font-display font-medium tracking-widest mb-1 md:mb-2 text-sm md:text-base uppercase drop-shadow-md">Career</h2>
+            <h3 className="text-3xl md:text-5xl lg:text-7xl font-display font-bold text-foreground drop-shadow-lg leading-tight">Work Experience</h3>
+          </div>
+
+          {/* self-start pins the track perfectly to the left edge so Card 1 displays center */}
+          <motion.div 
+            className="flex flex-1 items-center self-start" 
+            style={{ 
+              x: xTranslate,
+              width: `${experiences.length * 100}vw` 
+            }}
+          >
+            {experiences.map((exp, index) => (
+              <div key={index} className="w-screen h-full flex items-center justify-center px-4 md:px-8 pb-14 md:pb-16">
+                <ExperienceCard exp={exp} />
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Progress Bar Track at the absolute bottom */}
+          <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 w-[80%] max-w-2xl h-1.5 md:h-2 bg-white/10 rounded-full overflow-hidden shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20">
+             <motion.div 
+               className="h-full bg-primary shadow-[0_0_15px_rgba(var(--primary),0.8)]"
+               style={{ scaleX: scrollYProgress, transformOrigin: '0% 50%' }}
+             />
+          </div>
         </div>
       </div>
     </section>

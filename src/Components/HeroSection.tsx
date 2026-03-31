@@ -11,6 +11,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="-mt-20 md:mt-0"
         >
           <h2 className="text-secondary-foreground/60 font-body text-xl md:text-2xl mb-4 tracking-widest uppercase">
             Electrical & Electronic Engineering
@@ -22,22 +23,22 @@ export default function HeroSection() {
             Undergraduate at Imperial College London <span className="text-primary font-medium opacity-80">(QS World Ranking 2)</span>. Passionate about hardware engineering, AI automations, and electronics.
           </p>
 
-          <div className="flex flex-col xl:flex-row items-start justify-center gap-6 min-h-[60px]">
-            <a href="https://drive.google.com/file/d/15zrSnfFRTYcdSqVI_Bkti_bSnqH7a8Lp/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="gradient-button px-8 py-4 rounded-full font-display font-semibold text-lg flex items-center gap-2 group text-white shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-shadow cursor-pointer z-40">
+          <div className="flex flex-wrap xl:flex-nowrap items-center xl:items-start justify-center gap-4 xl:gap-6 min-h-[60px] w-full mt-8 md:mt-0">
+            <a href="https://drive.google.com/file/d/15zrSnfFRTYcdSqVI_Bkti_bSnqH7a8Lp/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="order-1 gradient-button px-6 py-4 xl:px-8 xl:py-4 rounded-full font-display font-semibold text-base xl:text-lg flex items-center gap-2 group text-white shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-shadow cursor-pointer z-40 shrink-0">
               View My Resume
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
 
-            <div className="relative z-50">
+            <div className="relative z-50 order-3 xl:order-2 w-full xl:w-auto flex justify-center mt-2 xl:mt-0">
               <MorphPanel />
             </div>
             
-            <div className="flex items-center gap-4 border border-border/50 glass-card px-6 py-4 rounded-full">
+            <div className="order-2 xl:order-3 flex items-center gap-4 border border-border/50 glass-card px-5 py-4 xl:px-6 xl:py-4 rounded-full shrink-0">
               <a href="https://www.linkedin.com/in/hong-zhe-tan/" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
-                <Linkedin className="w-6 h-6" />
+                <Linkedin className="w-5 h-5 xl:w-6 xl:h-6" />
               </a>
               <a href="mailto:hongzhetan7@gmail.com" className="text-foreground/70 hover:text-primary transition-colors">
-                <Mail className="w-6 h-6" />
+                <Mail className="w-5 h-5 xl:w-6 xl:h-6" />
               </a>
             </div>
           </div>

@@ -1,11 +1,102 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, MapPin, Linkedin, Github } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { motion, useAnimation, useMotionValue, useTransform } from 'framer-motion';
+import { Mail, MapPin, Linkedin, Github, Send } from 'lucide-react';
+
+const SlideToSubmit = ({ isSubmitting, onTrigger }: { isSubmitting: boolean; onTrigger: () => boolean }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimation();
+  const x = useMotionValue(0);
+  const [maxWidth, setMaxWidth] = useState(0);
+  const knobWidth = 56; 
+  
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setMaxWidth(containerRef.current.offsetWidth - knobWidth - 8); 
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, [knobWidth]);
+
+  const handleDragEnd = async () => {
+    const threshold = maxWidth * 0.8;
+    if (x.get() >= threshold) {
+      if (onTrigger()) {
+        await controls.start({ x: maxWidth });
+      } else {
+        controls.start({ x: 0, transition: { type: "spring", stiffness: 300, damping: 20 } });
+      }
+    } else {
+      controls.start({ x: 0, transition: { type: "spring", stiffness: 300, damping: 20 } });
+    }
+  };
+
+  const textOpacity = useTransform(x, [0, maxWidth / 2], [1, 0]);
+  const bgWidth = useTransform(x, (val) => val + knobWidth + 8);
+  
+  return (
+    <div 
+      ref={containerRef}
+      className={`relative w-full h-[60px] rounded-xl overflow-hidden flex items-center justify-center p-1 border transition-all duration-300 ${isSubmitting ? 'bg-primary border-primary shadow-[0_0_30px_rgba(255,255,255,0.2)]' : 'bg-primary/10 border-primary/30 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.05)]'}`}
+    >
+      <motion.div 
+        className="absolute left-0 top-0 bottom-0 bg-primary/20 z-0 pointer-events-none"
+        style={{ width: bgWidth }}
+      />
+      
+      {!isSubmitting && (
+        <motion.span 
+          style={{ opacity: textOpacity }}
+          className="absolute z-10 font-body text-primary font-medium text-base pointer-events-none flex items-center gap-2"
+        >
+          Slide to Send
+          <Send className="w-4 h-4 opacity-50" />
+        </motion.span>
+      )}
+
+      {isSubmitting && (
+         <span className="absolute z-10 font-body text-primary-foreground font-medium animate-pulse text-base flex items-center gap-2">
+           <Send className="w-5 h-5" />
+           Sending...
+         </span>
+      )}
+
+      {!isSubmitting && (
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: 0, right: maxWidth }}
+          dragElastic={0.05}
+          onDragEnd={handleDragEnd}
+          animate={controls}
+          style={{ x }}
+          className="absolute left-1 top-1 bottom-1 w-14 bg-primary rounded-lg flex items-center justify-center text-primary-foreground cursor-grab active:cursor-grabbing shadow-[0_0_20px_rgba(255,255,255,0.3)] z-20 group"
+        >
+          <Send className="w-5 h-5 ml-1 transition-transform group-active:scale-95 text-primary-foreground" />
+        </motion.div>
+      )}
+    </div>
+  );
+};
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
+  const triggerSubmit = () => {
+    if (formRef.current) {
+      if (formRef.current.checkValidity()) {
+        formRef.current.requestSubmit();
+        return true;
+      } else {
+        formRef.current.reportValidity();
+        return false;
+      }
+    }
+    return false;
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -139,7 +230,7 @@ export default function Contact() {
                   </button>
                 </div>
               ) : (
-                <form action="https://formspree.io/f/xlgobyba" method="POST" onSubmit={handleSubmit} className="h-full flex flex-col justify-center">
+                <form ref={formRef} action="https://formspree.io/f/xlgobyba" method="POST" onSubmit={handleSubmit} className="h-full flex flex-col justify-center">
                   <h4 className="text-2xl font-display font-bold text-white mb-6">Send Me a Message</h4>
                   
                   <div className="space-y-4">
@@ -179,13 +270,7 @@ export default function Contact() {
                   ></textarea>
                 </div>
                 
-                <button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full bg-primary hover:bg-primary/90 disabled:opacity-70 disabled:cursor-not-allowed text-primary-foreground font-body font-medium rounded-xl px-4 py-3 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all transform hover:-translate-y-1 disabled:hover:translate-y-0"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
+                <SlideToSubmit isSubmitting={isSubmitting} onTrigger={triggerSubmit} />
               </div>
             </form>
             )}
