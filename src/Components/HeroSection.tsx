@@ -22,7 +22,7 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="https://drive.google.com/file/d/1S_2aGyylG3CXLcVDeo8IFglcQSBM30ze/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="gradient-button px-8 py-4 rounded-full font-display font-semibold text-lg flex items-center gap-2 group text-white shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-shadow">
+            <a href="https://drive.google.com/file/d/15zrSnfFRTYcdSqVI_Bkti_bSnqH7a8Lp/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="gradient-button px-8 py-4 rounded-full font-display font-semibold text-lg flex items-center gap-2 group text-white shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-shadow">
               View My Resume
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
