@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 const experiences = [
   {
@@ -37,13 +37,23 @@ const experiences = [
 ];
 
 const ExperienceCard = ({ exp }: { exp: typeof experiences[0] }) => {
+  const [currentImageIdx, setCurrentImageIdx] = useState(0);
+
+  useEffect(() => {
+    if (!exp.images || exp.images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIdx((prev) => (prev + 1) % exp.images.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [exp.images]);
+
   return (
     <div className="glass-card rounded-3xl p-6 md:p-10 flex flex-col lg:flex-row gap-8 items-start hover:border-primary/50 transition-colors relative z-20 w-full max-w-5xl bg-background/98 backdrop-blur-3xl shadow-2xl max-h-[85vh] overflow-y-auto hide-scrollbar">
       <div className="lg:w-1/3 w-full shrink-0">
         <div className="flex items-center gap-4 mb-4">
           {exp.logo && (
             <div className="w-14 h-14 rounded-full bg-white flex flex-col items-center justify-center p-2 shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/10 overflow-hidden">
-              <img src={exp.logo} alt={`${exp.company} logo`} className="w-full h-full object-contain" />
+              <img src={exp.logo} loading="lazy" alt={`${exp.company} logo`} className="w-full h-full object-contain" />
             </div>
           )}
           <div>
@@ -54,24 +64,42 @@ const ExperienceCard = ({ exp }: { exp: typeof experiences[0] }) => {
         <p className="text-xl text-muted-foreground font-display">{exp.company}</p>
       </div>
 
-      <div className="lg:w-2/3">
+      <div className="lg:w-2/3 w-full">
         <p className="text-foreground/80 font-body text-lg leading-relaxed mb-6">
           {exp.description}
         </p>
 
         {exp.images && exp.images.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {exp.images.map((img, i) => (
-              <div key={i} className="rounded-xl overflow-hidden border border-border/50 group aspect-video bg-section-dark">
+          <>
+            {/* Mobile Auto-Slideshow */}
+            <div className="md:hidden relative w-full aspect-video rounded-xl overflow-hidden border border-border/50 bg-section-dark">
+              {exp.images.map((img, i) => (
                 <img
+                  key={i}
                   src={img}
                   alt={`${exp.company} image ${i + 1}`}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                  loading="lazy"
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentImageIdx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+
+            {/* Desktop Full Grid */}
+            <div className="hidden md:grid grid-cols-2 gap-4">
+              {exp.images.map((img, i) => (
+                <div key={i} className="rounded-xl overflow-hidden border border-border/50 group aspect-video bg-section-dark relative">
+                  <img
+                    src={img}
+                    alt={`${exp.company} image ${i + 1}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 absolute inset-0"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
