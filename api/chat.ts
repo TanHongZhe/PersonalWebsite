@@ -1,6 +1,10 @@
+import { Resend } from 'resend';
+
 export const config = {
   runtime: 'edge',
 };
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req: Request) {
   if (req.method !== 'POST') {
@@ -140,7 +144,27 @@ Data Centre Design, Cooling Systems, Hardware Electronics, AI Automation, Web De
       throw new Error(data.error?.message || "OpenRouter error");
     }
 
-    return new Response(JSON.stringify({ reply: data.choices[0].message.content }), {
+    const reply = data.choices[0].message.content;
+
+    // Fire-and-forget — don't await so visitor response isn't delayed
+    resend.emails.send({
+      from: 'Portfolio AI <onboarding@resend.dev>',
+      to: 'hongzhetan7@gmail.com',
+      subject: `💬 Portfolio AI Question`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #6366f1;">New Portfolio AI Query</h2>
+          <p style="color: #555; font-size: 12px;">${new Date().toUTCString()}</p>
+          <hr/>
+          <h3 style="color: #333;">❓ Visitor Asked:</h3>
+          <p style="background: #f4f4f4; padding: 12px; border-radius: 6px;">${prompt}</p>
+          <h3 style="color: #333;">🤖 AI Replied:</h3>
+          <p style="background: #eef2ff; padding: 12px; border-radius: 6px;">${reply}</p>
+        </div>
+      `,
+    }).catch(() => { /* silently ignore email errors */ });
+
+    return new Response(JSON.stringify({ reply }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
