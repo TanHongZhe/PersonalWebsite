@@ -47,7 +47,7 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
     >
       {/* Highly visible radial faux-blur for Mobile (Top-right blob only) */}
       <div className="md:hidden absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-10%] right-[-20%] w-[90vw] h-[90vw]" style={{ background: 'radial-gradient(circle, hsl(var(--primary)/0.35) 0%, transparent 70%)' }} />
+        <div className="absolute top-[-20%] right-[-30%] w-[90vw] h-[90vw]" style={{ background: 'radial-gradient(circle, hsl(var(--primary)/0.24) 0%, transparent 70%)' }} />
       </div>
 
       {/* Huge Blur Orbs (desktop only) */}
