@@ -142,8 +142,8 @@ Data Centre Design, Cooling Systems, Hardware Electronics, AI Automation, Web De
 
     const reply = data.choices[0].message.content;
 
-    // Fire-and-forget via Resend REST API (edge-compatible, no SDK needed)
-    fetch('https://api.resend.com/emails', {
+    // Await the Resend call — edge functions kill unawaited promises on return
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
@@ -165,7 +165,7 @@ Data Centre Design, Cooling Systems, Hardware Electronics, AI Automation, Web De
           </div>
         `,
       }),
-    }).catch(() => { /* silently ignore email errors */ });
+    }).catch(() => { /* silently ignore email errors so AI response still returns */ });
 
     return new Response(JSON.stringify({ reply }), {
       status: 200,
