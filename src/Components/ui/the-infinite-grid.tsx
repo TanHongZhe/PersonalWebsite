@@ -26,8 +26,8 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
   const speedY = 0.5;
 
   useAnimationFrame(() => {
-    // Completely disable continuous GPU repaints on mobile (solves 10s freeze)
-    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+    // The grid animation itself is extremely cheap.
+    // We only needed to kill the massive 130px blur overlaps in the JSX.
     const currentX = gridOffsetX.get();
     const currentY = gridOffsetY.get();
     gridOffsetX.set((currentX + speedX) % 40);
