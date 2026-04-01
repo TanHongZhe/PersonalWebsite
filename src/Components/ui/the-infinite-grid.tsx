@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { cn } from "../../lib/utils";
-import { 
-  motion, 
-  useMotionValue, 
-  useMotionTemplate, 
-  useAnimationFrame 
+import {
+  motion,
+  useMotionValue,
+  useMotionTemplate,
+  useAnimationFrame
 } from "framer-motion";
 
 export const Component = ({ children, className }: { children?: React.ReactNode; className?: string }) => {
@@ -22,7 +22,7 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
   const gridOffsetX = useMotionValue(0);
   const gridOffsetY = useMotionValue(0);
 
-  const speedX = 0.5; 
+  const speedX = 0.5;
   const speedY = 0.5;
 
   useAnimationFrame(() => {
@@ -61,20 +61,20 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
       <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
-      
+
       {/* Permanent center grid fade (shows heavily on mobile: 50%, softly on desktop: 30%) */}
-      <div 
+      <div
         className="absolute inset-0 z-0 opacity-50 md:opacity-30 pointer-events-none"
-        style={{ 
-          maskImage: 'radial-gradient(400px circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)', 
-          WebkitMaskImage: 'radial-gradient(400px circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)' 
+        style={{
+          maskImage: 'radial-gradient(400px circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'radial-gradient(400px circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)'
         }}
       >
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
 
       {/* Mouse hover grid fade (desktop only) */}
-      <motion.div 
+      <motion.div
         className="hidden md:block absolute inset-0 z-0 opacity-50 pointer-events-none"
         style={{ maskImage, WebkitMaskImage: maskImage }}
       >
@@ -104,7 +104,7 @@ const GridPattern = ({ offsetX, offsetY }: { offsetX: any, offsetY: any }) => {
             d="M 40 0 L 0 0 0 40"
             fill="none"
             stroke="currentColor"
-            className="[stroke-width:1.2px] md:[stroke-width:1px] text-primary/70 md:text-primary/60" 
+            className="[stroke-width:1.2px] md:[stroke-width:1px] text-primary/70 md:text-primary/60"
           />
         </motion.pattern>
       </defs>
