@@ -26,6 +26,8 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
   const speedY = 0.5;
 
   useAnimationFrame(() => {
+    // Completely disable continuous GPU repaints on mobile (solves 10s freeze)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
     const currentX = gridOffsetX.get();
     const currentY = gridOffsetY.get();
     gridOffsetX.set((currentX + speedX) % 40);
@@ -49,7 +51,7 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
       
       {/* Permanent center grid fade */}
       <div 
-        className="absolute inset-0 z-0 opacity-30 pointer-events-none"
+        className="hidden md:block absolute inset-0 z-0 opacity-30 pointer-events-none"
         style={{ 
           maskImage: 'radial-gradient(600px circle at center, black 0%, transparent 100%)', 
           WebkitMaskImage: 'radial-gradient(600px circle at center, black 0%, transparent 100%)' 
@@ -58,19 +60,23 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
 
-      {/* Mouse hover grid fade */}
+      {/* Mouse hover grid fade (desktop only) */}
       <motion.div 
-        className="absolute inset-0 z-0 opacity-50 pointer-events-none"
+        className="hidden md:block absolute inset-0 z-0 opacity-50 pointer-events-none"
         style={{ maskImage, WebkitMaskImage: maskImage }}
       >
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </motion.div>
 
-      <div className="absolute inset-0 pointer-events-none z-0">
+      {/* Huge Blur Orbs (desktop only, as mobile GPUs freeze attempting to composite 130px overlapping blurs) */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
         <div className="absolute right-[-20%] top-[-20%] w-[40%] h-[40%] rounded-full bg-primary/30 blur-[130px]" />
         <div className="absolute right-[10%] top-[-10%] w-[20%] h-[20%] rounded-full bg-blue-500/20 blur-[100px]" />
         <div className="absolute left-[-10%] bottom-[-20%] w-[40%] h-[40%] rounded-full bg-secondary/40 blur-[120px]" />
       </div>
+      
+      {/* Lightweight mobile fallback gradient to replace heavy orbs */}
+      <div className="md:hidden absolute inset-0 pointer-events-none z-0 bg-gradient-to-br from-primary/5 via-background to-blue-500/5" />
 
       <div className="relative z-10 w-full h-full flex flex-col justify-center">
         {children}
