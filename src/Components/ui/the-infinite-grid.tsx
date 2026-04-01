@@ -45,8 +45,12 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
         className
       )}
     >
-      {/* Lightweight mobile fallback gradient to replace heavy orbs (Placed first so it sits BEHIND the grid) */}
-      <div className="md:hidden absolute inset-0 pointer-events-none z-0 bg-gradient-to-br from-primary/10 via-background to-blue-500/10 opacity-60" />
+      {/* Highly visible radial faux-blurs for Mobile (0 GPU filter cost, perfectly simulates blur) */}
+      <div className="md:hidden absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-[-10%] right-[-20%] w-[90vw] h-[90vw]" style={{ background: 'radial-gradient(circle, hsl(var(--primary)/0.35) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-[-10%] left-[-20%] w-[110vw] h-[110vw]" style={{ background: 'radial-gradient(circle, hsl(var(--secondary)/0.5) 0%, transparent 70%)' }} />
+        <div className="absolute top-[30%] left-[-10%] w-[70vw] h-[70vw]" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 60%)' }} />
+      </div>
 
       {/* Huge Blur Orbs (desktop only, as mobile GPUs freeze attempting to composite 130px overlapping blurs) */}
       <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
@@ -55,13 +59,13 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
         <div className="absolute left-[-10%] bottom-[-20%] w-[40%] h-[40%] rounded-full bg-secondary/40 blur-[120px]" />
       </div>
 
-      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-[0.10] pointer-events-none">
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
       
       {/* Permanent center grid fade (shows on both mobile and desktop) */}
       <div 
-        className="absolute inset-0 z-0 opacity-40 pointer-events-none"
+        className="absolute inset-0 z-0 opacity-70 pointer-events-none"
         style={{ 
           maskImage: 'radial-gradient(400px circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)', 
           WebkitMaskImage: 'radial-gradient(400px circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)' 
@@ -72,7 +76,7 @@ export const Component = ({ children, className }: { children?: React.ReactNode;
 
       {/* Mouse hover grid fade (desktop only) */}
       <motion.div 
-        className="hidden md:block absolute inset-0 z-0 opacity-50 pointer-events-none"
+        className="hidden md:block absolute inset-0 z-0 opacity-60 pointer-events-none"
         style={{ maskImage, WebkitMaskImage: maskImage }}
       >
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
@@ -101,8 +105,8 @@ const GridPattern = ({ offsetX, offsetY }: { offsetX: any, offsetY: any }) => {
             d="M 40 0 L 0 0 0 40"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1"
-            className="text-primary/60" 
+            strokeWidth="1.5"
+            className="text-primary/90" 
           />
         </motion.pattern>
       </defs>
