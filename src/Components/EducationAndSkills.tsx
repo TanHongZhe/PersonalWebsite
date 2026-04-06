@@ -51,7 +51,7 @@ export default function EducationAndSkills() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary group-hover:w-2 transition-all" />
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 shrink-0 bg-white rounded-xl overflow-hidden shadow-lg p-2 border border-white/10 hidden sm:block">
-                  <img src="/images/logo-imperial.png" alt="Imperial College London" className="w-full h-full object-contain" />
+                  <img src="/images/logo-imperial.png" alt="Imperial College London - Education of Hong Zhe Tan" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-display font-bold mb-2 w-full">Imperial College London <span className="text-primary text-sm tracking-wider font-medium lg:block xl:inline">(QS World Ranking 2)</span></h3>
@@ -68,7 +68,7 @@ export default function EducationAndSkills() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary group-hover:w-2 transition-all" />
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 shrink-0 bg-white rounded-xl overflow-hidden shadow-lg p-2 border border-white/10 hidden sm:block">
-                  <img src="/images/logo-sunway.png" alt="Sunway College" className="w-full h-full object-contain" />
+                  <img src="/images/logo-sunway.png" alt="Sunway College - Education of Hong Zhe Tan" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-display font-bold mb-2">Sunway College</h3>
@@ -86,7 +86,7 @@ export default function EducationAndSkills() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary group-hover:w-2 transition-all" />
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 shrink-0 bg-white rounded-xl overflow-hidden shadow-lg p-2 border border-white/10 hidden sm:block">
-                  <img src="/images/logo-taylors.png" alt="Taylor's International School Puchong" className="w-full h-full object-contain" />
+                  <img src="/images/logo-taylors.png" alt="Taylor's International School - Education of Hong Zhe Tan" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h3 className="text-xl md:text-2xl font-display font-bold mb-2">Taylor's International School Puchong</h3>
@@ -118,7 +118,7 @@ export default function EducationAndSkills() {
                 <div className="rounded-xl overflow-hidden border border-border/30 bg-white/5 aspect-[4/3] flex items-center justify-center relative group">
                    <img 
                       src={cert.image} 
-                      alt={cert.title}
+                      alt={`${cert.title} - Certificate awarded to Hong Zhe Tan`}
                       className="w-full h-full object-contain p-2 hover:scale-105 transition-transform duration-500"
                       onError={(e) => { e.currentTarget.style.display = 'none'; }}
                    />

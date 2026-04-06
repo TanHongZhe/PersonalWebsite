@@ -53,7 +53,7 @@ const ExperienceCard = ({ exp }: { exp: typeof experiences[0] }) => {
         <div className="flex items-center gap-4 mb-4">
           {exp.logo && (
             <div className="w-14 h-14 rounded-full bg-white flex flex-col items-center justify-center p-2 shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/10 overflow-hidden">
-              <img src={exp.logo} loading="lazy" alt={`${exp.company} logo`} className="w-full h-full object-contain" />
+              <img src={exp.logo} loading="lazy" alt={`${exp.company} logo - Hong Zhe's Work Experience`} className="w-full h-full object-contain" />
             </div>
           )}
           <div>
@@ -77,7 +77,7 @@ const ExperienceCard = ({ exp }: { exp: typeof experiences[0] }) => {
                 <img
                   key={i}
                   src={img}
-                  alt={`${exp.company} image ${i + 1}`}
+                  alt={`${exp.company} work - Hong Zhe Tan - Image ${i + 1}`}
                   loading="lazy"
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentImageIdx ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                   onError={(e) => { e.currentTarget.style.display = 'none'; }}
@@ -91,7 +91,7 @@ const ExperienceCard = ({ exp }: { exp: typeof experiences[0] }) => {
                 <div key={i} className="rounded-xl overflow-hidden border border-border/50 group aspect-video bg-section-dark relative">
                   <img
                     src={img}
-                    alt={`${exp.company} image ${i + 1}`}
+                    alt={`${exp.company} work - Hong Zhe Tan - Image ${i + 1}`}
                     loading="lazy"
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 absolute inset-0"
                     onError={(e) => { e.currentTarget.style.display = 'none'; }}

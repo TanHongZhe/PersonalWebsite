@@ -55,7 +55,7 @@ export default function Achievements() {
                     <div key={i} className="rounded-2xl overflow-hidden border border-border/50 bg-black max-h-[300px] relative">
                       <img 
                         src={img} 
-                        alt={item.title}
+                        alt={`${item.title} - Achievement by Hong Zhe Tan`}
                         className="w-full h-full object-cover object-top transition-transform hover:scale-105 duration-700"
                         onError={(e) => { e.currentTarget.style.display = 'none'; }}
                       />
