@@ -20,7 +20,7 @@ export default function HeroSection() {
             <span className="bg-gradient-to-br from-white via-primary to-blue-500 bg-clip-text text-transparent pb-2 pr-2">TAN HONG ZHE</span>
           </h1>
           <p className="text-muted-foreground font-body text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-balance">
-            Undergraduate at Imperial College London <span className="text-primary font-medium opacity-80">(QS World Ranking 2)</span>. Passionate about hardware engineering, AI automations, and electronics.
+            I'm <span className="text-foreground font-semibold">Hong Zhe</span>, an Undergraduate at Imperial College London <span className="text-primary font-medium opacity-80">(QS World Ranking 2)</span>. Passionate about hardware engineering, AI automations, and electronics.
           </p>
 
           <div className="flex flex-wrap xl:flex-nowrap items-center xl:items-start justify-center gap-4 xl:gap-6 min-h-[60px] w-full mt-8 md:mt-0">
