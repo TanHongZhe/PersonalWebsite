@@ -37,7 +37,7 @@ export default function HeroSection() {
               <a href="https://www.linkedin.com/in/hong-zhe-tan/" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
                 <Linkedin className="w-5 h-5 xl:w-6 xl:h-6" />
               </a>
-              <a href="mailto:hongzhetan7@gmail.com" className="text-foreground/70 hover:text-primary transition-colors">
+              <a href="#contact" className="text-foreground/70 hover:text-primary transition-colors">
                 <Mail className="w-5 h-5 xl:w-6 xl:h-6" />
               </a>
             </div>

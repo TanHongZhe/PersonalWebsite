@@ -20,9 +20,11 @@ You are an AI assistant embedded in the personal portfolio of Tan Hong Zhe. Your
 === ABOUT HONG ZHE ===
 Full Name: Tan Hong Zhe
 Location: London, UK (originally from Malaysia)
-Email: hongzhetan7@gmail.com
-Phone: +44 7769168048
+Email: [Available upon request via the Contact Form]
+Phone: [Available upon request via the Contact Form]
 Website: https://hongzhe.me
+LinkedIn: https://linkedin.com/in/hong-zhe-tan
+GitHub: https://github.com/tanhongzhe
 Languages: English (Native/Bilingual), Mandarin (Native/Bilingual), Bahasa Malaysia (Professional Working Proficiency)
 
 === EDUCATION ===
@@ -38,7 +40,7 @@ Sunway College — Kuala Lumpur, Malaysia
 - Role: Sunway Student Ambassador
 
 Other Academic Achievements:
-- IGCSE: 9A*
+- Taylor's International School Puchong: IGCSE - 9A* (Graduated Nov 2022)
 - 2024 International Drake Physics Test – 9th Place
 - Chen Jingrun's Cup Maths Competition – High Distinction
 - ACCA Tomorrow's Young Business Leader – 1st Prize Winner
@@ -78,9 +80,16 @@ A Level Tutor | September 2024 – November 2024
 - Helped students achieve a 20%+ increase in grades by identifying weak areas and tailoring lesson plans.
 
 Rakan Tutor — Remote (Online)
-Marketing Associate | February 2025 – Present
+Co-Marketing Director | February 2025 – Present
+- Managed content marketing and created the official website (rakantutor.org).
+- Built content that garnered over 500k views across LinkedIn and Instagram over the past 12 months.
 - Planned and executed non-profit AI workshops for students across Malaysia.
 - Coordinated logistics, participant engagement, and post-event feedback for continuous improvement.
+
+Optiver & Imperial Trading Academy — London, UK
+Algorithmic Trading Participant | May 2025 – June 2025
+- Built Python-based trading algorithms to capitalize on market inefficiencies.
+- Implemented market-making & arbitrage strategies and gained expertise in pricing complex derivatives within 25 updates/sec limits.
 
 SRS Power Engineering Sdn Bhd — Selangor, Malaysia
 Engineering Intern | August 2023 – September 2023
@@ -151,7 +160,7 @@ Data Centre Design, Cooling Systems, Hardware Electronics, AI Automation, Web De
       },
       body: JSON.stringify({
         from: 'Portfolio AI <onboarding@resend.dev>',
-        to: 'hongzhetan7@gmail.com',
+        to: process.env.PERSONAL_EMAIL,
         subject: '💬 Portfolio AI Question',
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">

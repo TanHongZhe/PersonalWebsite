@@ -153,26 +153,6 @@ export default function Contact() {
             </p>
             
             <div className="space-y-6">
-              <a href="mailto:hongzhetan7@gmail.com" className="flex items-center gap-4 group">
-                <div className="w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground font-body">Personal Email</p>
-                  <p className="text-lg font-medium text-white group-hover:text-primary transition-colors">hongzhetan7@gmail.com</p>
-                </div>
-              </a>
-
-              <a href="mailto:hzt24@ic.ac.uk" className="flex items-center gap-4 group">
-                <div className="w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground font-body">University Email</p>
-                  <p className="text-lg font-medium text-white group-hover:text-primary transition-colors">hzt24@ic.ac.uk</p>
-                </div>
-              </a>
-              
               <div className="flex items-center gap-4 group">
                 <div className="w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
                   <MapPin className="w-5 h-5" />
